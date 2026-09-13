@@ -1,9 +1,12 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import DatasetLibraryClient from '@/components/DatasetLibraryClient';
 
-const classes = ['AnnualCrop','Forest','HerbaceousVegetation','Highway','Industrial','Pasture','PermanentCrop','Residential','River','SeaLake'];
-export default function DatasetLibrary() {
-  const [active, setActive] = useState('All classes');
-  return <div className="container"><section className="page-hero"><div className="eyebrow">Dataset library / EuroSAT</div><h1>Browse the land-cover vocabulary.</h1><p>Ten classes from the EuroSAT classification task. This interface is ready for connected sample imagery, but no EuroSAT image collection is present in this repository yet.</p></section><div className="filters"><button className={`filter ${active === 'All classes' ? 'active' : ''}`} onClick={() => setActive('All classes')}>All classes</button>{classes.map(item => <button className={`filter ${active === item ? 'active' : ''}`} key={item} onClick={() => setActive(item)}>{item}</button>)}</div><section className="empty-state"><div className="empty-symbol">+</div><div><h2>{active === 'All classes' ? 'No sample images connected' : `${active} samples are not connected`}</h2><p>The repository contains research records and figures, but no image folders or EuroSAT tiles. Add a local image manifest and public dataset assets later to populate this view. Prediction, confidence, class probabilities, true-label matching, and Grad-CAM will remain blank until a real API result exists.</p><div className="button-row"><Link className="button" href="/upload">Try an RGB upload <span>→</span></Link></div></div></section><section className="section"><div className="section-header"><div><div className="eyebrow">Planned sample detail</div><h2 className="section-title">One image, fully explained.</h2></div><p className="section-copy">The detail panel is designed to show a selected tile at larger scale, its true class, and an explicit model analysis state.</p></div><div className="feature-grid"><div className="data-card"><span className="mono">01 / TRUTH</span><h3>True class</h3><p>Read from the dataset manifest, never inferred from a filename alone.</p></div><div className="data-card"><span className="mono">02 / OUTPUT</span><h3>Ten probabilities</h3><p>Populated only by a connected RGB inference endpoint.</p></div><div className="data-card"><span className="mono">03 / EXPLAIN</span><h3>Grad-CAM</h3><p>Shown only when the backend returns a real explanation for that image.</p></div></div></section></div>;
+export const metadata = {
+  title: 'Dataset Library | TerraShift',
+  description: 'Interactive EuroSAT 10-class dataset library and sample manifest architecture.',
+};
+
+export default function DatasetLibraryPage() {
+  return <DatasetLibraryClient />;
 }
