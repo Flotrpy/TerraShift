@@ -12,6 +12,7 @@ The checkpoint file is never committed to git -- point CHECKPOINT_PATH at wherev
 
 import io
 import os
+import urllib.request
 
 import torch
 import torch.nn.functional as F
@@ -23,7 +24,21 @@ from torchvision import transforms
 from model import CLASSES, load_model
 
 CHECKPOINT_PATH = os.environ.get("CHECKPOINT_PATH", "./checkpoints/rgb_best.pth")
+# Public URL to download the checkpoint from at startup if it isn't already on disk
+# (e.g. a Hugging Face model repo's resolve URL). Keeps the ~90MB weight file out of
+# every git repo -- it's fetched once when the container boots.
+CHECKPOINT_URL = os.environ.get("CHECKPOINT_URL", "")
 ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
+
+
+def ensure_checkpoint() -> None:
+    if os.path.exists(CHECKPOINT_PATH):
+        return
+    if not CHECKPOINT_URL:
+        return
+    os.makedirs(os.path.dirname(CHECKPOINT_PATH) or ".", exist_ok=True)
+    print(f"Downloading checkpoint from {CHECKPOINT_URL} -> {CHECKPOINT_PATH}")
+    urllib.request.urlretrieve(CHECKPOINT_URL, CHECKPOINT_PATH)
 
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
@@ -47,10 +62,11 @@ model = None
 model_load_error = None
 
 try:
+    ensure_checkpoint()
     if os.path.exists(CHECKPOINT_PATH):
         model = load_model(CHECKPOINT_PATH, device)
     else:
-        model_load_error = f"Checkpoint not found at {CHECKPOINT_PATH}"
+        model_load_error = f"Checkpoint not found at {CHECKPOINT_PATH} and CHECKPOINT_URL is not set"
 except Exception as e:  # noqa: BLE001
     model_load_error = str(e)
 

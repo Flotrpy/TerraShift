@@ -10,10 +10,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY main.py model.py ./
-COPY checkpoints/ ./checkpoints/
 
+# Checkpoint is NOT baked into the image -- it's downloaded at container startup
+# from CHECKPOINT_URL (see main.py: ensure_checkpoint()).
 ENV CHECKPOINT_PATH=/app/checkpoints/rgb_best.pth
 ENV ALLOWED_ORIGINS=*
-EXPOSE 7860
+EXPOSE 10000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10000"]
