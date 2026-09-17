@@ -44,11 +44,11 @@ export default function UploadPredictPage() {
     <div className="max-w-2xl space-y-8">
       <div className="space-y-2">
         <h1 className="text-3xl font-semibold">Upload & Predict</h1>
-        <p className="text-earth-200/80">
+        <p className="text-ink/75">
           Upload your own RGB satellite or aerial image (JPG/JPEG/PNG) and get a prediction from the
           TerraShift RGB ResNet50 model.
         </p>
-        <p className="text-sm text-earth-200/60">
+        <p className="text-sm text-ink/55">
           Images outside the EuroSAT training distribution &mdash; different resolution, angle, or
           scene type &mdash; will still get a prediction, but treat the result as experimental.
         </p>
@@ -58,32 +58,32 @@ export default function UploadPredictPage() {
         type="file"
         accept="image/jpeg,image/png"
         onChange={onFileChange}
-        className="block text-sm text-earth-200/70 file:mr-4 file:rounded-md file:border-0 file:bg-earth-700 file:px-4 file:py-2 file:text-earth-100"
+        className="block text-sm text-ink/65 file:mr-4 file:rounded-md file:border-0 file:bg-ink/15 file:px-4 file:py-2 file:text-ink"
       />
 
       {previewUrl && (
         <div className="space-y-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={previewUrl} alt="Preview" className="max-h-80 rounded-lg border border-earth-700" />
+          <img src={previewUrl} alt="Preview" className="max-h-80 rounded-lg border border-ink/15" />
           <button
             onClick={analyze}
             disabled={loading}
-            className="rounded-md bg-earth-400 px-5 py-3 text-sm font-medium text-earth-950 disabled:opacity-50"
+            className="rounded-md bg-brand-600 px-5 py-3 text-sm font-medium text-paper disabled:opacity-50"
           >
             {loading ? "Analyzing..." : "Analyze"}
           </button>
         </div>
       )}
 
-      {error && <p className="text-earth-200/70 text-sm">{error}</p>}
+      {error && <p className="text-ink/65 text-sm">{error}</p>}
 
       {result && (
-        <div className="rounded-lg border border-earth-700 p-6 space-y-3">
+        <div className="rounded-lg border border-ink/15 p-6 space-y-3">
           <p>
-            Prediction: <span className="font-mono text-earth-400">{result.prediction}</span> (
+            Prediction: <span className="font-mono text-brand-600">{result.prediction}</span> (
             {(result.confidence * 100).toFixed(1)}% confidence)
           </p>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-earth-200/70">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-ink/65">
             {Object.entries(result.probabilities).map(([cls, p]) => (
               <li key={cls} className="flex justify-between">
                 <span>{cls}</span>
@@ -91,7 +91,7 @@ export default function UploadPredictPage() {
               </li>
             ))}
           </ul>
-          {result.note && <p className="text-xs text-earth-200/50">{result.note}</p>}
+          {result.note && <p className="text-xs text-ink/20">{result.note}</p>}
         </div>
       )}
     </div>

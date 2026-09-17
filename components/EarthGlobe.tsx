@@ -3,8 +3,12 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-// Lightweight interactive wireframe globe. No external textures are fetched;
-// everything is generated procedurally so it stays fast and works offline.
+// Realistic, interactive Earth: actual country/ocean detail via NASA-derived
+// imagery (three.js's standard example textures), plus a thin cloud layer and
+// a soft atmosphere glow. Drag to rotate (with inertia); it auto-spins slowly
+// when left alone.
+const TEXTURE_BASE = "https://threejs.org/examples/textures/planets/";
+
 export default function EarthGlobe() {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -17,70 +21,65 @@ export default function EarthGlobe() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 4.2;
+    camera.position.z = 4.4;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(width, height);
     mount.appendChild(renderer.domElement);
 
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+    const sun = new THREE.DirectionalLight(0xffffff, 1.4);
+    sun.position.set(4, 2, 5);
+    scene.add(sun);
+
     const group = new THREE.Group();
     scene.add(group);
 
-    // Solid core sphere (very subtle, gives the wireframe some depth).
-    const core = new THREE.Mesh(
-      new THREE.SphereGeometry(1.5, 48, 48),
-      new THREE.MeshBasicMaterial({ color: 0x0a2620, transparent: true, opacity: 0.55 })
-    );
-    group.add(core);
+    const loader = new THREE.TextureLoader();
+    loader.crossOrigin = "anonymous";
 
-    // Wireframe lattice.
-    const wireGeo = new THREE.SphereGeometry(1.5, 32, 32);
-    const wireframe = new THREE.LineSegments(
-      new THREE.WireframeGeometry(wireGeo),
-      new THREE.LineBasicMaterial({ color: 0x4ade9a, transparent: true, opacity: 0.35 })
-    );
-    group.add(wireframe);
+    const earthGeo = new THREE.SphereGeometry(1.5, 64, 64);
+    const earthMat = new THREE.MeshPhongMaterial({
+      map: loader.load(TEXTURE_BASE + "earth_atmos_2048.jpg"),
+      specularMap: loader.load(TEXTURE_BASE + "earth_specular_2048.jpg"),
+      normalMap: loader.load(TEXTURE_BASE + "earth_normal_2048.jpg"),
+      normalScale: new THREE.Vector2(0.85, 0.85),
+      specular: new THREE.Color(0x556655),
+      shininess: 12,
+    });
+    const earth = new THREE.Mesh(earthGeo, earthMat);
+    group.add(earth);
 
-    // Scattered point cloud on the surface to suggest landmasses without a texture.
-    const pointCount = 900;
-    const positions = new Float32Array(pointCount * 3);
-    for (let i = 0; i < pointCount; i++) {
-      // Bias sampling with simple noise bands so points cluster like coastlines.
-      const u = Math.random();
-      const v = Math.random();
-      const theta = u * Math.PI * 2;
-      const phi = Math.acos(2 * v - 1);
-      const band = Math.sin(phi * 3 + theta * 2) * 0.5 + Math.sin(theta * 5) * 0.3;
-      if (band < -0.15) continue;
-      const r = 1.52;
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.cos(phi);
-      const z = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3] = x;
-      positions[i * 3 + 1] = y;
-      positions[i * 3 + 2] = z;
-    }
-    const pointsGeo = new THREE.BufferGeometry();
-    pointsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const points = new THREE.Points(
-      pointsGeo,
-      new THREE.PointsMaterial({ color: 0x9ff5cf, size: 0.02, transparent: true, opacity: 0.9 })
-    );
-    group.add(points);
+    const cloudsMat = new THREE.MeshLambertMaterial({
+      map: loader.load(TEXTURE_BASE + "earth_clouds_1024.png"),
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+    });
+    const clouds = new THREE.Mesh(new THREE.SphereGeometry(1.516, 64, 64), cloudsMat);
+    group.add(clouds);
 
-    // Faint outer glow ring.
+    // Soft additive atmosphere glow (rendered back-face, no external shader needed).
     const glow = new THREE.Mesh(
-      new THREE.SphereGeometry(1.62, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0x2fbf85, transparent: true, opacity: 0.06 })
+      new THREE.SphereGeometry(1.62, 48, 48),
+      new THREE.MeshBasicMaterial({
+        color: 0x3fae7c,
+        transparent: true,
+        opacity: 0.18,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending,
+      })
     );
     group.add(glow);
 
-    // Drag-to-rotate + auto-spin with inertia.
+    group.rotation.z = (23.4 * Math.PI) / 180;
+    group.rotation.y = 2.4;
+
     let dragging = false;
     let lastX = 0;
     let lastY = 0;
-    let velX = 0.0018;
+    let velX = 0.0016;
     let velY = 0;
 
     const onDown = (e: PointerEvent) => {
@@ -93,9 +92,9 @@ export default function EarthGlobe() {
       const dx = e.clientX - lastX;
       const dy = e.clientY - lastY;
       velX = dx * 0.0025;
-      velY = dy * 0.0025;
+      velY = dy * 0.0018;
       group.rotation.y += velX;
-      group.rotation.x += velY;
+      group.rotation.x = Math.max(-1, Math.min(1, group.rotation.x + velY));
       lastX = e.clientX;
       lastY = e.clientY;
     };
@@ -116,10 +115,11 @@ export default function EarthGlobe() {
 
     let frameId: number;
     const animate = () => {
+      clouds.rotation.y += 0.0007;
       if (!dragging) {
         group.rotation.y += velX;
         group.rotation.x += velY;
-        velX += (0.0018 - velX) * 0.02;
+        velX += (0.0016 - velX) * 0.02;
         velY += (0 - velY) * 0.02;
       }
       renderer.render(scene, camera);
@@ -141,6 +141,8 @@ export default function EarthGlobe() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("resize", onResize);
+      earthGeo.dispose();
+      earthMat.dispose();
       renderer.dispose();
       mount.removeChild(renderer.domElement);
     };

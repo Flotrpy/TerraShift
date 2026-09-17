@@ -11,22 +11,22 @@ export default function ModelDemoPage() {
     <div className="max-w-2xl space-y-10">
       <div className="space-y-2">
         <h1 className="text-3xl font-semibold">Model Demo</h1>
-        <p className="text-earth-200/80">How an image becomes a prediction, step by step.</p>
+        <p className="text-ink/75">How an image becomes a prediction, step by step.</p>
       </div>
       <ol className="space-y-6">
         {STEPS.map((s, i) => (
           <li key={s.title} className="flex gap-4">
-            <span className="font-mono text-earth-400">{String(i + 1).padStart(2, "0")}</span>
+            <span className="font-mono text-brand-600">{String(i + 1).padStart(2, "0")}</span>
             <div>
               <h2 className="font-medium">{s.title}</h2>
-              <p className="text-sm text-earth-200/70">{s.body}</p>
+              <p className="text-sm text-ink/65">{s.body}</p>
             </div>
           </li>
         ))}
       </ol>
-      <p className="text-sm text-earth-200/60">
-        Try it live in the <a href="/dataset-library" className="text-earth-400 underline">Dataset Library</a> or{" "}
-        <a href="/upload-predict" className="text-earth-400 underline">Upload & Predict</a>.
+      <p className="text-sm text-ink/55">
+        Try it live in the <a href="/dataset-library" className="text-brand-600 underline">Dataset Library</a> or{" "}
+        <a href="/upload-predict" className="text-brand-600 underline">Upload & Predict</a>.
       </p>
     </div>
   );

@@ -37,7 +37,7 @@ export default function DatasetLibraryPage() {
     <div className="space-y-8">
       <div className="space-y-2">
         <h1 className="text-3xl font-semibold">Dataset Library</h1>
-        <p className="text-earth-200/80 max-w-2xl">
+        <p className="text-ink/75 max-w-2xl">
           Browse sample EuroSAT patches by class, then send one to the real TerraShift model and
           compare its prediction against the true label.
         </p>
@@ -47,7 +47,7 @@ export default function DatasetLibraryPage() {
         <button
           onClick={() => setActiveClass(null)}
           className={`rounded-full px-3 py-1 text-sm border ${
-            activeClass === null ? "border-earth-400 text-earth-400" : "border-earth-700 text-earth-200/70"
+            activeClass === null ? "border-brand-600 text-brand-600" : "border-ink/15 text-ink/65"
           }`}
         >
           All classes
@@ -57,7 +57,7 @@ export default function DatasetLibraryPage() {
             key={c}
             onClick={() => setActiveClass(c)}
             className={`rounded-full px-3 py-1 text-sm border ${
-              activeClass === c ? "border-earth-400 text-earth-400" : "border-earth-700 text-earth-200/70"
+              activeClass === c ? "border-brand-600 text-brand-600" : "border-ink/15 text-ink/65"
             }`}
           >
             {c}
@@ -65,34 +65,34 @@ export default function DatasetLibraryPage() {
         ))}
       </div>
 
-      <div className="rounded-lg border border-dashed border-earth-700 p-8 text-center text-earth-200/60">
+      <div className="rounded-lg border border-dashed border-ink/15 p-8 text-center text-ink/55">
         Sample image tiles go here once a curated EuroSAT subset is added to{" "}
-        <code className="text-earth-300">public/dataset-sample/</code>. Clicking a tile will open it,
+        <code className="text-ink/60">public/dataset-sample/</code>. Clicking a tile will open it,
         show its true class, and offer &ldquo;Analyze with TerraShift&rdquo;.
       </div>
 
       {selectedImage && (
-        <div className="rounded-lg border border-earth-700 p-6 space-y-4">
+        <div className="rounded-lg border border-ink/15 p-6 space-y-4">
           <div className="flex items-center justify-between">
             <p>
-              True class: <span className="font-mono text-earth-400">{selectedImage.trueClass}</span>
+              True class: <span className="font-mono text-brand-600">{selectedImage.trueClass}</span>
             </p>
             <button
               onClick={analyze}
               disabled={loading}
-              className="rounded-md bg-earth-400 px-4 py-2 text-sm font-medium text-earth-950 disabled:opacity-50"
+              className="rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-paper disabled:opacity-50"
             >
               {loading ? "Analyzing..." : "Analyze with TerraShift"}
             </button>
           </div>
-          {error && <p className="text-earth-200/70 text-sm">{error}</p>}
+          {error && <p className="text-ink/65 text-sm">{error}</p>}
           {result && (
             <div className="space-y-2 text-sm">
               <p>
-                Prediction: <span className="font-mono text-earth-400">{result.prediction}</span> (
+                Prediction: <span className="font-mono text-brand-600">{result.prediction}</span> (
                 {(result.confidence * 100).toFixed(1)}% confidence)
               </p>
-              <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-earth-200/70">
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-ink/65">
                 {Object.entries(result.probabilities).map(([cls, p]) => (
                   <li key={cls} className="flex justify-between">
                     <span>{cls}</span>

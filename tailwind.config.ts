@@ -5,6 +5,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Light editorial theme.
+        paper: "#f5f4ef",
+        ink: "#12181a",
+        brand: {
+          600: "#1f6b4a",
+          500: "#2a8562",
+          400: "#3fae7c",
+        },
+        clay: "#d9663f",
+        dark: {
+          900: "#0d1a16",
+          800: "#132420",
+          700: "#1b332c",
+        },
+        // Kept for anything still referencing the old dark palette.
         earth: {
           950: "#05130f",
           900: "#0a1f18",
