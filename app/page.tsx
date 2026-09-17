@@ -1,9 +1,11 @@
 import Link from "next/link";
+import EarthGlobe from "@/components/EarthGlobe";
 
 export default function HomePage() {
   return (
     <div className="space-y-20">
-      <section className="space-y-6">
+      <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="space-y-6">
         <p className="font-mono text-sm uppercase tracking-widest text-earth-400">
           Sentinel-2 &middot; EuroSAT &middot; Transfer learning
         </p>
@@ -29,6 +31,10 @@ export default function HomePage() {
           >
             Upload your own image
           </Link>
+        </div>
+        </div>
+        <div className="hidden lg:block">
+          <EarthGlobe />
         </div>
       </section>
 
