@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Next.js
+.next/
+out/
+build/
+.vercel/
+
+# Env / secrets
+.env
+.env.local
+.env*.local
+*.pem
+secrets/
+
+# Model checkpoints (never commit)
+*.pth
+*.pt
+*.ckpt
+checkpoints/
+
+# Data (never commit full EuroSAT)
+data/
+research/data/
+*.zip
+*.tar.gz
+EuroSAT*/
+EuroSATallBands*/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,0 +1,40 @@
+{
+  "run": "Colab T4, 2026-09-16",
+  "source": "Printed notebook output (research notebook TerraShift_Training.ipynb). Checkpoints and figures from this run were not persisted: the Colab runtime reset before the Drive copy succeeded.",
+  "split": {"train": 18900, "val": 4050, "test": 4050, "seed": 42},
+  "rgb": {
+    "params_total": 23528522, "params_trainable": 20490,
+    "best_val_acc": 0.9407,
+    "test_accuracy": 0.9479, "weighted_precision": 0.9484, "weighted_recall": 0.9479, "weighted_f1": 0.9479,
+    "per_class": {
+      "AnnualCrop": {"precision": 0.9052, "recall": 0.9767, "f1": 0.9396, "note": "recall derived from printed P and F1 (printed R was obscured on screen)"},
+      "Forest": {"precision": 0.9605, "recall": 0.9821, "f1": 0.9712},
+      "HerbaceousVegetation": {"precision": 0.9505, "recall": 0.8972, "f1": 0.9231},
+      "Highway": {"precision": 0.8980, "recall": 0.9096, "f1": 0.9037},
+      "Industrial": {"precision": 0.9810, "recall": 0.9628, "f1": 0.9718},
+      "Pasture": {"precision": 0.9316, "recall": 0.9167, "f1": 0.9241},
+      "PermanentCrop": {"precision": 0.9416, "recall": 0.9293, "f1": 0.9354},
+      "Residential": {"precision": 0.9933, "recall": 0.9779, "f1": 0.9855},
+      "River": {"precision": 0.9300, "recall": 0.9185, "f1": 0.9242},
+      "SeaLake": {"precision": 0.9816, "recall": 0.9907, "f1": 0.9861}
+    }
+  },
+  "multispectral": {
+    "params_total": 23559882, "params_trainable": 61258,
+    "best_val_acc": 0.8793,
+    "test_accuracy": 0.8706, "weighted_precision": 0.8727, "weighted_recall": 0.8706, "weighted_f1": 0.8697,
+    "per_class": {
+      "AnnualCrop": {"precision": 0.9056, "recall": 0.8256, "f1": 0.8637},
+      "Forest": {"precision": 0.9332, "recall": 0.9081, "f1": 0.9205},
+      "HerbaceousVegetation": {"precision": 0.7961, "recall": 0.8668, "f1": 0.8300},
+      "Highway": {"precision": 0.7885, "recall": 0.7804, "f1": 0.7844},
+      "Industrial": {"precision": 0.8325, "recall": 0.9255, "f1": 0.8766},
+      "Pasture": {"precision": 0.8897, "recall": 0.7500, "f1": 0.8139},
+      "PermanentCrop": {"precision": 0.8445, "recall": 0.7251, "f1": 0.7803},
+      "Residential": {"precision": 0.8231, "recall": 0.9448, "f1": 0.8798},
+      "River": {"precision": 0.9177, "recall": 0.9358, "f1": 0.9267},
+      "SeaLake": {"precision": 0.9861, "recall": 0.9907, "f1": 0.9884}
+    }
+  },
+  "gradcam_error_example": {"model": "multispectral", "true": "Residential", "pred": "Highway", "confidence": 0.9565, "note": "Overconfident misclassification kept for error analysis; not a success example."}
+}
