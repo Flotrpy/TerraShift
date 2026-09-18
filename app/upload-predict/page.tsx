@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { predictImage, type PredictionResponse } from "@/lib/api";
+import { predictImage, ApiError, type PredictionResponse } from "@/lib/api";
+import InferenceProgress from "@/components/InferenceProgress";
 
 const ACCEPTED = ["image/jpeg", "image/jpg", "image/png"];
 
@@ -10,7 +11,7 @@ export default function UploadPredictPage() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [result, setResult] = useState<PredictionResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [startedAt, setStartedAt] = useState<number | null>(null);
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
@@ -27,18 +28,20 @@ export default function UploadPredictPage() {
 
   async function analyze() {
     if (!file) return;
-    setLoading(true);
+    setStartedAt(Date.now());
     setError(null);
     setResult(null);
     try {
       const prediction = await predictImage(file);
       setResult(prediction);
-    } catch {
-      setError("Model inference coming soon.");
+    } catch (e) {
+      setError(e instanceof ApiError ? e.message : "Something went wrong. Please try again.");
     } finally {
-      setLoading(false);
+      setStartedAt(null);
     }
   }
+
+  const loading = startedAt !== null;
 
   return (
     <div className="max-w-2xl space-y-8">
@@ -74,6 +77,8 @@ export default function UploadPredictPage() {
           </button>
         </div>
       )}
+
+      {loading && startedAt && <InferenceProgress startedAt={startedAt} />}
 
       {error && <p className="text-ink/65 text-sm">{error}</p>}
 

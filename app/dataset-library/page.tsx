@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { EUROSAT_CLASSES } from "@/lib/classes";
-import { predictImage, type PredictionResponse } from "@/lib/api";
+import { predictImage, ApiError, type PredictionResponse } from "@/lib/api";
+import InferenceProgress from "@/components/InferenceProgress";
 
 /**
  * Dataset Library. Image thumbnails come from a small bundled EuroSAT sample set (added under
@@ -15,11 +16,12 @@ export default function DatasetLibraryPage() {
   const [selectedImage, setSelectedImage] = useState<{ src: string; trueClass: string } | null>(null);
   const [result, setResult] = useState<PredictionResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const loading = startedAt !== null;
 
   async function analyze() {
     if (!selectedImage) return;
-    setLoading(true);
+    setStartedAt(Date.now());
     setError(null);
     setResult(null);
     try {
@@ -27,9 +29,9 @@ export default function DatasetLibraryPage() {
       const prediction = await predictImage(blob);
       setResult(prediction);
     } catch (e) {
-      setError("Model inference coming soon.");
+      setError(e instanceof ApiError ? e.message : "Something went wrong. Please try again.");
     } finally {
-      setLoading(false);
+      setStartedAt(null);
     }
   }
 
@@ -85,6 +87,7 @@ export default function DatasetLibraryPage() {
               {loading ? "Analyzing..." : "Analyze with TerraShift"}
             </button>
           </div>
+          {loading && startedAt && <InferenceProgress startedAt={startedAt} />}
           {error && <p className="text-ink/65 text-sm">{error}</p>}
           {result && (
             <div className="space-y-2 text-sm">
