@@ -1,0 +1,162 @@
+[
+  {
+    "src": "/dataset-sample/AnnualCrop/AnnualCrop_1377.jpg",
+    "trueClass": "AnnualCrop"
+  },
+  {
+    "src": "/dataset-sample/AnnualCrop/AnnualCrop_2790.jpg",
+    "trueClass": "AnnualCrop"
+  },
+  {
+    "src": "/dataset-sample/AnnualCrop/AnnualCrop_2939.jpg",
+    "trueClass": "AnnualCrop"
+  },
+  {
+    "src": "/dataset-sample/AnnualCrop/AnnualCrop_448.jpg",
+    "trueClass": "AnnualCrop"
+  },
+  {
+    "src": "/dataset-sample/Forest/Forest_1399.jpg",
+    "trueClass": "Forest"
+  },
+  {
+    "src": "/dataset-sample/Forest/Forest_2179.jpg",
+    "trueClass": "Forest"
+  },
+  {
+    "src": "/dataset-sample/Forest/Forest_2225.jpg",
+    "trueClass": "Forest"
+  },
+  {
+    "src": "/dataset-sample/Forest/Forest_2273.jpg",
+    "trueClass": "Forest"
+  },
+  {
+    "src": "/dataset-sample/HerbaceousVegetation/HerbaceousVegetation_1534.jpg",
+    "trueClass": "HerbaceousVegetation"
+  },
+  {
+    "src": "/dataset-sample/HerbaceousVegetation/HerbaceousVegetation_1832.jpg",
+    "trueClass": "HerbaceousVegetation"
+  },
+  {
+    "src": "/dataset-sample/HerbaceousVegetation/HerbaceousVegetation_1878.jpg",
+    "trueClass": "HerbaceousVegetation"
+  },
+  {
+    "src": "/dataset-sample/HerbaceousVegetation/HerbaceousVegetation_2554.jpg",
+    "trueClass": "HerbaceousVegetation"
+  },
+  {
+    "src": "/dataset-sample/Highway/Highway_1389.jpg",
+    "trueClass": "Highway"
+  },
+  {
+    "src": "/dataset-sample/Highway/Highway_1720.jpg",
+    "trueClass": "Highway"
+  },
+  {
+    "src": "/dataset-sample/Highway/Highway_2462.jpg",
+    "trueClass": "Highway"
+  },
+  {
+    "src": "/dataset-sample/Highway/Highway_27.jpg",
+    "trueClass": "Highway"
+  },
+  {
+    "src": "/dataset-sample/Industrial/Industrial_1229.jpg",
+    "trueClass": "Industrial"
+  },
+  {
+    "src": "/dataset-sample/Industrial/Industrial_2211.jpg",
+    "trueClass": "Industrial"
+  },
+  {
+    "src": "/dataset-sample/Industrial/Industrial_2275.jpg",
+    "trueClass": "Industrial"
+  },
+  {
+    "src": "/dataset-sample/Industrial/Industrial_591.jpg",
+    "trueClass": "Industrial"
+  },
+  {
+    "src": "/dataset-sample/Pasture/Pasture_1137.jpg",
+    "trueClass": "Pasture"
+  },
+  {
+    "src": "/dataset-sample/Pasture/Pasture_1181.jpg",
+    "trueClass": "Pasture"
+  },
+  {
+    "src": "/dataset-sample/Pasture/Pasture_1420.jpg",
+    "trueClass": "Pasture"
+  },
+  {
+    "src": "/dataset-sample/Pasture/Pasture_177.jpg",
+    "trueClass": "Pasture"
+  },
+  {
+    "src": "/dataset-sample/PermanentCrop/PermanentCrop_1407.jpg",
+    "trueClass": "PermanentCrop"
+  },
+  {
+    "src": "/dataset-sample/PermanentCrop/PermanentCrop_1559.jpg",
+    "trueClass": "PermanentCrop"
+  },
+  {
+    "src": "/dataset-sample/PermanentCrop/PermanentCrop_2151.jpg",
+    "trueClass": "PermanentCrop"
+  },
+  {
+    "src": "/dataset-sample/PermanentCrop/PermanentCrop_600.jpg",
+    "trueClass": "PermanentCrop"
+  },
+  {
+    "src": "/dataset-sample/Residential/Residential_1310.jpg",
+    "trueClass": "Residential"
+  },
+  {
+    "src": "/dataset-sample/Residential/Residential_2018.jpg",
+    "trueClass": "Residential"
+  },
+  {
+    "src": "/dataset-sample/Residential/Residential_2033.jpg",
+    "trueClass": "Residential"
+  },
+  {
+    "src": "/dataset-sample/Residential/Residential_959.jpg",
+    "trueClass": "Residential"
+  },
+  {
+    "src": "/dataset-sample/River/River_192.jpg",
+    "trueClass": "River"
+  },
+  {
+    "src": "/dataset-sample/River/River_194.jpg",
+    "trueClass": "River"
+  },
+  {
+    "src": "/dataset-sample/River/River_1971.jpg",
+    "trueClass": "River"
+  },
+  {
+    "src": "/dataset-sample/River/River_797.jpg",
+    "trueClass": "River"
+  },
+  {
+    "src": "/dataset-sample/SeaLake/SeaLake_1521.jpg",
+    "trueClass": "SeaLake"
+  },
+  {
+    "src": "/dataset-sample/SeaLake/SeaLake_1778.jpg",
+    "trueClass": "SeaLake"
+  },
+  {
+    "src": "/dataset-sample/SeaLake/SeaLake_2374.jpg",
+    "trueClass": "SeaLake"
+  },
+  {
+    "src": "/dataset-sample/SeaLake/SeaLake_935.jpg",
+    "trueClass": "SeaLake"
+  }
+]
