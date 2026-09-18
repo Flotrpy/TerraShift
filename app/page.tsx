@@ -28,10 +28,10 @@ export default function HomePage() {
               Explore the Dataset Library
             </Link>
             <Link
-              href="/upload-predict"
+              href="/results"
               className="rounded-md border border-ink/30 px-5 py-3 text-sm font-medium text-ink hover:border-brand-600 hover:text-brand-600 transition-colors"
             >
-              Upload your own image &rarr;
+              See the results &rarr;
             </Link>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-6 sm:grid-cols-3">
+      <section className="grid gap-6 sm:grid-cols-2">
         {[
           {
             tag: "01 / DATASET",
@@ -74,13 +74,7 @@ export default function HomePage() {
             href: "/dataset-library",
           },
           {
-            tag: "02 / INFERENCE",
-            title: "Upload & Predict",
-            body: "Upload your own satellite/aerial image for an experimental prediction.",
-            href: "/upload-predict",
-          },
-          {
-            tag: "03 / EMPIRICAL RESULTS",
+            tag: "02 / EMPIRICAL RESULTS",
             title: "Results",
             body: "Metrics, confusion matrices, and RGB vs. multispectral comparisons.",
             href: "/results",

@@ -25,8 +25,7 @@ export default function ModelDemoPage() {
         ))}
       </ol>
       <p className="text-sm text-ink/55">
-        Try it live in the <a href="/dataset-library" className="text-brand-600 underline">Dataset Library</a> or{" "}
-        <a href="/upload-predict" className="text-brand-600 underline">Upload & Predict</a>.
+        Try it live in the <a href="/dataset-library" className="text-brand-600 underline">Dataset Library</a>.
       </p>
     </div>
   );

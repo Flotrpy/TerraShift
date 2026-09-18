@@ -3,7 +3,6 @@ import Link from "next/link";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/dataset-library", label: "Dataset Library" },
-  { href: "/upload-predict", label: "Upload & Predict" },
   { href: "/model-demo", label: "Model Demo" },
   { href: "/research", label: "Research" },
   { href: "/methodology", label: "Methodology" },

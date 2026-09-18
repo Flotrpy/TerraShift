@@ -14,7 +14,7 @@ research website that lets visitors run real inference against the trained model
 
 ```
 TerraShift/
-├── app/            # Next.js frontend (Home, Dataset Library, Upload & Predict, Model Demo, Research, Methodology, Results, GitHub)
+├── app/            # Next.js frontend (Home, Dataset Library, Model Demo, Research, Methodology, Results, GitHub)
 ├── components/     # Shared React components
 ├── lib/            # Frontend utilities (API client, types)
 ├── public/         # Static assets
